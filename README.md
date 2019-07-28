@@ -12,10 +12,10 @@
 2. Go to this new directory ``` cd name-app ``` 
 4. Delete all directories and files without directory: node-modules
 5. Clone project from GitHub not in an empty directory: 
-    6. ``` git init ``` 
-    7. ``` git remote add origin ssh://... ./```
-    8. ``` git fetch```
-    9. ``` git checkout -t origin/master```
+    - ``` git init ``` 
+    - ``` git remote add origin ssh://... ./```
+    - ``` git fetch```
+    - ``` git checkout -t origin/master```
 10. And after: ``` npm start ```
 
 
