@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './person-details.css';
 import SwapiService from "../../services/swapi-service";
+import Spinner from "../spinner";
 
 
 export default class PersonDetails extends Component {
@@ -9,7 +10,8 @@ export default class PersonDetails extends Component {
     swapiService = new SwapiService();
 
     state = {
-        person: null
+        person: null,
+        loading: true,
     };
 
     componentDidMount() {
@@ -18,11 +20,30 @@ export default class PersonDetails extends Component {
 
     componentDidUpdate(prevProps){
         if(this.props.personId !== prevProps.personId) {
+            this.setState({
+                loading: true
+            });
             this.updatePerson();
         }
     }
 
-    updatePerson() {
+    // Function for processing Errors
+    onError = (err) => {
+        this.setState({
+            error: true,
+            loading: false
+        })
+    };
+
+    onPersonLoaded = (person) => {
+        this.setState({
+            person,
+            loading: false,
+            error: false
+        })
+    };
+
+    updatePerson = () => {
         const { personId } = this.props;
         if(!personId){
             return;
@@ -30,18 +51,23 @@ export default class PersonDetails extends Component {
 
         this.swapiService
             .getPerson(personId)
-            .then((person) => {
-                this.setState({ person })
-            });
-    }
+            .then(this.onPersonLoaded)
+            .catch(this.onError)
+    };
 
     render() {
 
-        if(!this.state.person) {
-            return <span>Select a person from a list</span>
+        if(this.state.loading) {
+            return <Spinner />;
+            //return <span>Select a person from a list</span>
         }
 
-        const {id, name, gender, birthYear, eyeColor} = this.state.person;
+        const { person, error } = this.state;
+        const {id, name, gender, birthYear, eyeColor} = person;
+
+        if(error) {
+            return 'Ooops, error in person-details';
+        }
 
         return (
             <div className="person-details card">
