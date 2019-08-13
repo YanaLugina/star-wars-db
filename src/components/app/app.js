@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
-
+import './app.css';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
 import ErrorButton from "../error-button";
 import ErrorIndicator from "../error-indicator";
 
@@ -39,38 +37,6 @@ export default class App extends Component {
                 <ErrorButton />
 
                 <PeoplePage />
-
-                <div className="row mb2">
-                    <div className="col-md-6">
-                        <ItemList
-                            onItemSelected={this.onPersonSelected}
-                            getData={this.swapiService.getAllPlanets}
-                            renderItem={(item)=> <span>{item.name} <button className="btn btn-danger"> ! </button></span>}
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <PersonDetails
-                            personId={this.state.selectedPerson}
-                        />
-                        <ErrorButton />
-                    </div>
-                </div>
-
-                <div className="row mb2">
-                    <div className="col-md-6">
-                        <ItemList
-                            onItemSelected={this.onPersonSelected}
-                            getData={this.swapiService.getAllStarships}
-                            renderItem={(item)=> item.name}
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <PersonDetails
-                            personId={this.state.selectedPerson}
-                        />
-                        <ErrorButton />
-                    </div>
-                </div>
 
             </div>
         );
