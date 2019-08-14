@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 
-import './person-details.css';
+import './item-details.css';
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spinner";
 import ErrorButton from "../error-button";
 
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
     swapiService = new SwapiService();
 
     state = {
-        person: null,
+        item: null,
         loading: true,
+        image: null
     };
 
     componentDidMount() {
-        this.updatePerson();
+        this.updateItem();
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.personId !== prevProps.personId) {
+        if(this.props.itemId !== prevProps.itemId) {
             this.setState({
                 loading: true
             });
-            this.updatePerson();
+            this.updateItem();
         }
     }
 
@@ -36,48 +37,44 @@ export default class PersonDetails extends Component {
         })
     };
 
-    onPersonLoaded = (person) => {
-        this.setState({
-            person,
-            loading: false,
-            error: false
-        })
-    };
-
-    updatePerson = () => {
-        const { personId } = this.props;
-        if(!personId){
+    updateItem = () => {
+        const { itemId, getData, getImageUrl } = this.props;
+        if(!itemId){
             return;
         }
 
-        this.swapiService
-            .getPerson(personId)
-            .then(this.onPersonLoaded)
+        getData(itemId)
+            .then((item) => {
+                this.setState({
+                    item,
+                    loading: false,
+                    error: false,
+                    image: getImageUrl(item)
+                })
+            })
             .catch(this.onError)
     };
 
     render() {
-
-        if(this.state.loading) {
-            return <Spinner />;
-            //return <span>Select a person from a list</span>
+        const { item, error, image, loading } = this.state;
+        if(loading) {
+            //return <Spinner />;
+            return <span>Select a item from a list</span>
         }
-
-        const { person, error } = this.state;
-        const {id, name, gender, birthYear, eyeColor} = person;
+        const {id, name, gender, birthYear, eyeColor} = item;
 
         if(error) {
-            return 'Ooops, error in person-details';
+            return 'Ooops, error in item-details';
         }
 
         return (
             <div className="person-details card">
-                <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+                <img src={image}
                      alt="value"
                      className="person-image" />
 
                 <div className="card-body">
-                    <h4>{ name } {this.props.personId}</h4>
+                    <h4>{ name } {this.props.itemId}</h4>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">
                             <span className="term">
@@ -97,9 +94,9 @@ export default class PersonDetails extends Component {
                             </span>
                             <span>{ eyeColor }</span>
                         </li>
-                        <li>
+                        <p>
                             <ErrorButton/>
-                        </li>
+                        </p>
                     </ul>
 
                 </div>
