@@ -2,32 +2,10 @@ import React, { Component } from 'react';
 
 import './people-page.css';
 import ItemList from "../item-list";
-import PersonDetails from "../person-details";
-import ErrorIndicator from "../error-indicator";
+import ItemDetails from "../item-details";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row";
-
-
-class ErrorBoundry extends Component {
-
-    state = {
-        hasError: false
-    };
-
-    componentDidCatch() {
-        this.setState({
-            hasError: true
-        });
-    }
-
-    render() {
-
-        if(this.state.hasError) {
-            return <ErrorIndicator />
-        }
-        return this.props.children;
-    }
-}
+import ErrorBoundry from "../error-boundry/error-boundry";
 
 export default class PeoplePage extends Component {
 
@@ -43,7 +21,6 @@ export default class PeoplePage extends Component {
         });
     };
 
-
     render() {
         const itemList = (
             <ItemList
@@ -55,17 +32,42 @@ export default class PeoplePage extends Component {
             </ItemList>
         );
 
+        /*const personDetails = (
+            <ErrorBoundry>
+                <ItemDetails
+                    personId={this.state.selectedPerson}
+                />
+            </ErrorBoundry>
+
+        );*/
+
+        const { getPerson, getStarship, getStarshipImage, getPersonImage } = this.swapiService;
+
         const personDetails = (
             <ErrorBoundry>
-                <PersonDetails
-                    personId={this.state.selectedPerson}
+                <ItemDetails
+                    itemId={11}
+                    getData={getPerson}
+                    getImageUrl={getPersonImage}
                 />
             </ErrorBoundry>
 
         );
 
+        const starshipDetails = (
+            <ErrorBoundry>
+                <ItemDetails
+                    itemId={11}
+                    getData={getStarship}
+                    getImageUrl={getStarshipImage}
+                />
+            </ErrorBoundry>
+
+        );
+        {/*<Row left={itemList} right={personDetails} />*/}
         return (
-            <Row left={itemList} right={personDetails} />
+
+            <Row left={personDetails} right={starshipDetails} />
         )
     }
 }
