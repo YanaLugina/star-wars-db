@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './people-page.css';
 import ItemList from "../item-list";
-import ItemDetails from "../item-details";
+import ItemDetails, { Record } from "../item-details";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row";
 import ErrorBoundry from "../error-boundry/error-boundry";
@@ -48,8 +48,12 @@ export default class PeoplePage extends Component {
                 <ItemDetails
                     itemId={11}
                     getData={getPerson}
-                    getImageUrl={getPersonImage}
-                />
+                    getImageUrl={getPersonImage} >
+
+                    <Record field="gender" label="Gender" />
+                    <Record field="eyeColor" label="Eye Color" />
+                    <Record field="birthYear" label="Birth Year" />
+                </ItemDetails>
             </ErrorBoundry>
 
         );
@@ -60,7 +64,11 @@ export default class PeoplePage extends Component {
                     itemId={11}
                     getData={getStarship}
                     getImageUrl={getStarshipImage}
-                />
+                >
+                    <Record field="model" label="Model" />
+                    <Record field="length" label="Length" />
+                    <Record field="costInCredits" label="Cost" />
+                </ItemDetails>
             </ErrorBoundry>
 
         );
