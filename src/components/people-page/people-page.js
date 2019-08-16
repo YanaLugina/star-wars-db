@@ -72,10 +72,12 @@ export default class PeoplePage extends Component {
             </ErrorBoundry>
 
         );
-        {/*<Row left={itemList} right={personDetails} />*/}
+        {/*<Row left={itemList} right={personDetails} />
+        *<Row left={personDetails} right={starshipDetails} />
+        **/}
         return (
 
-            <Row left={personDetails} right={starshipDetails} />
+            <Row left={itemList} right={personDetails} />
         )
     }
 }
