@@ -54,7 +54,7 @@ export default class SwapiService {
     };
 
     getPlanetImage = ({ id }) => {
-        return `${this._imageBase}/${id}.jpg`
+        return `${this._imageBase}/planets/${id}.jpg`
     };
 
     _extractId = (item) => {
@@ -97,9 +97,4 @@ export default class SwapiService {
     };
 
 }
-
-/*const swapi = new SwapiService();
-swapi.getAllPlanets().then((p) => {
-    p.forEach(res => console.log(res.name));
-});*/
 

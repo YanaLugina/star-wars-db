@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 
 import './app.css';
+
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorButton from "../error-button";
+import ErrorBoundry from '../error-boundry';
 import ErrorIndicator from "../error-indicator";
 
-import './app.css';
-import PeoplePage from "../people-page/people-page";
+import Row from "../row";
+import ItemDetails, { Record } from "../item-details";
 import SwapiService from "../../services/swapi-service";
+
+import { PersonList,
+    PlanetList,
+    StarshipList,
+    PersonDetails,
+    PlanetDetails,
+    StarshipDetails
+} from '../sw-components';
 
 export default class App extends Component {
 
@@ -29,16 +39,36 @@ export default class App extends Component {
             return <ErrorIndicator />
         }
 
+        const planet = this.state.showRandomPlanet ?
+            <RandomPlanet/> :
+            null;
+
         return (
-            <div  className="stardb-app">
-                <Header />
-                <RandomPlanet />
+            <ErrorBoundry>
+                <div  className="stardb-app">
+                    <Header />
+                    <RandomPlanet />
 
-                <ErrorButton />
+                    <ErrorButton />
 
-                <PeoplePage />
+                    <PersonDetails itemId={11}/>
+                    <PlanetDetails itemId={11}/>
+                    <StarshipDetails itemId={10}/>
 
-            </div>
+                    <PersonList>
+                        { ({name}) => ( `${name}` )}
+                    </PersonList>
+
+                    <StarshipList>
+                        { ({name}) => ( `${name}` )}
+                    </StarshipList>
+
+                    <PlanetList>
+                        { ({name}) => ( `${name}` )}
+                    </PlanetList>
+
+                </div>
+            </ErrorBoundry>
         );
     }
 };
