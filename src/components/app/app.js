@@ -11,8 +11,6 @@ import SwapiService from "../../services/swapi-service";
 import DummySwapiService from "../../services/dummy-swapi-service";
 
 import { SwapiServiceProvider } from "../swapi-service-context";
-import Row from "../row";
-import ItemDetails, { Record } from "../item-details";
 
 import { PersonList,
     PlanetList,

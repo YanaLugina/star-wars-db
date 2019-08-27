@@ -64,7 +64,7 @@ export default class DummySwapiService {
         return this._people[0];
     };
 
-    getAllStarsips = async () => {
+    getAllStarships = async () => {
         return this._starships;
     };
 
@@ -72,7 +72,7 @@ export default class DummySwapiService {
         return this._starships[0];
     };
 
-    getAllPlanet = async () => {
+    getAllPlanets = async () => {
         return this._planet;
     };
 

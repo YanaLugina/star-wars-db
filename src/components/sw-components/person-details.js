@@ -2,15 +2,9 @@ import React from "react";
 import ItemDetails, { Record } from "../item-details";
 import { withSwapiService } from "../hoc-helpers";
 
-const PersonDetails = ({ itemId, swapiService }) => {
-    const { getPerson, getPersonImage } = swapiService;
-
+const PersonDetails = (props) => {
     return (
-        <ItemDetails
-            itemId={itemId}
-            getData={getPerson}
-            getImageUrl={getPersonImage} >
-
+        <ItemDetails {... props}>
             <Record field="gender" label="Gender" />
             <Record field="eyeColor" label="Eye Color" />
 
@@ -18,6 +12,15 @@ const PersonDetails = ({ itemId, swapiService }) => {
     );
 };
 
-//Обязанность получать данные из контекста мы вынесли в компонент высшего порядка
+// карта необходимых методов получаемых из swapiService
+const mapMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getPerson,
+        getImageUrl: swapiService.getPersonImage
+    }
+};
 
-export default withSwapiService(PersonDetails);
+// Обязанность получать данные из контекста мы вынесли в компонент высшего порядка
+// Оборачивая данные компонентом hoc мы передаем ему контекст и карту данных для передачи конкретного метода
+
+export default withSwapiService(PersonDetails, mapMethodsToProps);
