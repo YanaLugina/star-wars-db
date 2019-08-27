@@ -80,15 +80,15 @@ export default class DummySwapiService {
         return this._planet[0];
     };
 
-    getPersonImage = ({ id }) => {
-        return `${this._imageBase}/characters/${id}.jpg`
+    getPersonImage = () => {
+        return `https://placeimg.com/400/500/people`
     };
 
-    getStarshipImage = ({ id }) => {
-        return `${this._imageBase}/starships/${id}.jpg`
+    getStarshipImage = () => {
+        return `https://placeimg.com/600/400/tech`;
     };
 
-    getPlanetImage = ({ id }) => {
-        return `${this._imageBase}/planets/${id}.jpg`
+    getPlanetImage = () => {
+        return `https://placeimg.com/400/400/nature`
     };
 }
