@@ -31,7 +31,9 @@ export default class ItemDetails extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.itemId !== prevProps.itemId) {
+        if(this.props.itemId !== prevProps.itemId ||
+            this.props.getData !== prevProps.getData ||
+            this.props.getImageUrl !== prevProps.getImageUrl) {
             this.setState({
                 loading: true
             });
@@ -88,6 +90,7 @@ export default class ItemDetails extends Component {
                     <ul className="list-group list-group-flush">
                         {
                             React.Children.map(this.props.children, (child) => {
+                                // изменять напрямую компонент мы не можем, только создавать новый для этого есть cloneElement
                                 return React.cloneElement(child, {item});
                             })
                         }

@@ -22,17 +22,33 @@ import { PersonList,
 
 export default class App extends Component {
 
-    swapiService = new SwapiService();
-    //swapiService = new DummySwapiService();
+    /*
+    * мы можем менять данные контекста, язык, цвет оформления и т.п.
+    * для этого помещаем входные данные контекста value в state, меняем value на this.state.контекст
+    * а в компонентах заменям
+    * */
 
     state = {
-        hasError: false
+        hasError: false,
+        swapiService: new DummySwapiService()
     };
 
     componentDidCatch(error, info) {
         console.log('componentDidCatch');
         this.setState({ hasError: true });
     }
+
+    onServiceChange = () => {
+        this.setState(({ swapiService }) => {
+            const Service = swapiService instanceof SwapiService ?
+                DummySwapiService : SwapiService;
+
+            return {
+                swapiService: new Service()
+            };
+        });
+
+    };
 
     render() {
 
@@ -46,15 +62,17 @@ export default class App extends Component {
 
         return (
             <ErrorBoundry>
-                <SwapiServiceProvider value={this.swapiService}>
+                <SwapiServiceProvider value={this.state.swapiService}>
                     <div  className="stardb-app">
-                        <Header />
+                        <Header
+                            onServiceChange={this.onServiceChange}
+                        />
                         <RandomPlanet />
 
                         <ErrorButton />
 
                         <PersonDetails itemId={11}/>
-                        <PlanetDetails itemId={11}/>
+                        <PlanetDetails itemId={9}/>
                         <StarshipDetails itemId={10}/>
 
                         <PersonList />
