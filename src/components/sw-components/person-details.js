@@ -23,4 +23,4 @@ const mapMethodsToProps = (swapiService) => {
 // Обязанность получать данные из контекста мы вынесли в компонент высшего порядка
 // Оборачивая данные компонентом hoc мы передаем ему контекст и карту данных для передачи конкретного метода
 
-export default withSwapiService(PersonDetails, mapMethodsToProps);
+export default withSwapiService(mapMethodsToProps)(PersonDetails);
