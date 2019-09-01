@@ -1,3 +1,6 @@
+To see app may here: 
+[https://my-star-wars-db.io](https://master.d3coyolg59u27z.amplifyapp.com/)
+
 ## Requirements
 
 + Nodejs
