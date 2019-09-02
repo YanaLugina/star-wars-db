@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
+import PropTypes from 'prop-types';
+
 import './random-planet.css';
 
 export default class RandomPlanet extends Component {
@@ -13,15 +15,8 @@ export default class RandomPlanet extends Component {
     };
 
     static propTypes = {
-        updateInterval: (props, propName, componentName) => {
-            const value = props[propName];
-
-            if(typeof value === "number" && !isNaN(value)) {
-                return null;
-            }
-
-            return new TypeError(`${componentName}: ${propName} must be number!`);
-        }
+        updateInterval: PropTypes.number                  //опциональное свойство
+        //updateInterval: PropTypes.number.isRequired     //обязательное свойство, свойства которые имеют значения по-умолчанию, никогда не являются Required
     };
 
     swapiService = new SwapiService();
