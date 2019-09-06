@@ -5,9 +5,9 @@ import './app.css';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ErrorBoundry from '../error-boundry';
-import ErrorIndicator from "../error-indicator";
-import SwapiService from "../../services/swapi-service";
-import DummySwapiService from "../../services/dummy-swapi-service";
+import ErrorIndicator from '../error-indicator';
+import SwapiService from '../../services/swapi-service';
+import DummySwapiService from '../../services/dummy-swapi-service';
 import {
     PeoplePage,
     PlanetsPage,
@@ -15,10 +15,10 @@ import {
     SecretPage,
     LoginPage
 } from '../pages';
-import { SwapiServiceProvider } from "../swapi-service-context";
+import { SwapiServiceProvider } from '../swapi-service-context';
 import { StarshipDetails } from '../sw-components';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 
 
@@ -77,35 +77,36 @@ export default class App extends Component {
 
                             {/*<ErrorButton />*/}
 
-                            <Route path="/"
-                                   render={() => <h2>Welcome to StarDB</h2>}
-                                   exact />
+                            <Switch>
+                                <Route path="/"
+                                       render={() => <h2>Welcome to StarDB</h2>}
+                                       exact />
 
+                                <Route path="/people/:id?" component={PeoplePage}/>
 
-                            <Route path="/people"
-                                   render={() => <h2>People</h2>}
-                                   exact />
-                            <Route path="/people/:id?" component={PeoplePage}/>
+                                <Route path="/planets" component={PlanetsPage}/>
 
-                            <Route path="/planets" component={PlanetsPage}/>
+                                <Route path="/starships" component={StarshipsPage} exact />
+                                {/* Для компонентов ниже по иерархии для передачи props withRouter компонент необходимо будет обернуть в HOC withRouter */}
+                                <Route path="/starships/:id"
+                                       render={ ({ match })=> {
+                                           const { id } = match.params;
+                                           return <StarshipDetails itemId={id}  />;
+                                       }} />
 
-                            <Route path="/starships" component={StarshipsPage} exact />
-                            {/* Для компонентов ниже по иерархии для передачи props withRouter компонент необходимо будет обернуть в HOC withRouter */}
-                            <Route path="/starships/:id"
-                                   render={ ({ match })=> {
-                                       const { id } = match.params;
-                                       return <StarshipDetails itemId={id}  />;
-                                   }} />
+                                <Route path="/secret"
+                                       render={ () => {
+                                           return (<SecretPage isLoggedIn={isLoggedIn}/>);
+                                       } } />
 
-                            <Route path="/secret"
-                                   render={ () => {
-                                       return (<SecretPage isLoggedIn={isLoggedIn}/>);
-                                   } } />
-
-                            <Route path="/login"
-                                   render={ () => {
-                                       return (<LoginPage isLoggedIn={isLoggedIn} onLogin={this.onLogin}/>);
-                                   } } />
+                                <Route path="/login"
+                                       render={ () => {
+                                           return (<LoginPage isLoggedIn={isLoggedIn} onLogin={this.onLogin}/>);
+                                       } } />
+                                <Route  render={ () => {
+                                    return (<h2>Error 404: Page not found!</h2>);
+                                }} />
+                            </Switch>
 
                         </div>
                     </Router>
