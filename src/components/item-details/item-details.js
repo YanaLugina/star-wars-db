@@ -94,9 +94,6 @@ export default class ItemDetails extends Component {
                                 return React.cloneElement(child, {item});
                             })
                         }
-                        <p>
-                            <ErrorButton/>
-                        </p>
                     </ul>
 
                 </div>

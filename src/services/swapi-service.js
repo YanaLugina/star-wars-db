@@ -5,7 +5,10 @@ export default class SwapiService {
     _imageBase = 'https://starwars-visualguide.com/assets/img';
 
     getResource = async (url) => {
-        const res = await fetch(`${this._apiBase}${url}`);
+        const opts = {
+            mode: 'cors'
+        };
+        const res = await fetch(`${this._apiBase}${url}`, opts);
         if(!res.ok) {
             throw new Error(`Could not fetch ${url}` +
                 `received ${res.status}`
