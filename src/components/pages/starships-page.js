@@ -1,4 +1,3 @@
-import React from 'react';
 import { StarshipList } from '../sw-components';
 
 const StarshipsPage = ({ history }) =>  {

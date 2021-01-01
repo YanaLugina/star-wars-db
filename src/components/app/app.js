@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import './app.css';
 
@@ -18,7 +18,7 @@ import {
 import { SwapiServiceProvider } from '../swapi-service-context';
 import { StarshipDetails } from '../sw-components';
 
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 

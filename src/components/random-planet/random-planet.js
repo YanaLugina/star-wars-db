@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
@@ -85,7 +85,7 @@ const PlanetView = ({ planet }) => {
 
     const { id, name, population, rotationPeriod, diameter } = planet;
     return (
-        <React.Fragment>
+        <>
             <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
                  alt="planet" className="planet-image"/>
             <div>
@@ -105,6 +105,6 @@ const PlanetView = ({ planet }) => {
                     </li>
                 </ul>
             </div>
-        </React.Fragment>
+        </>
     );
 };
