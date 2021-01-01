@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import { Children, cloneElement, Component } from 'react';
 
 import './item-details.css';
 import Spinner from "../spinner";
-import ErrorButton from "../error-button";
 
 const Record = ({ item, field, label }) => {
     return (
@@ -89,9 +88,9 @@ export default class ItemDetails extends Component {
                     <h4>{ name } {this.props.itemId}</h4>
                     <ul className="list-group list-group-flush">
                         {
-                            React.Children.map(this.props.children, (child) => {
+                            Children.map(this.props.children, (child) => {
                                 // изменять напрямую компонент мы не можем, только создавать новый для этого есть cloneElement
-                                return React.cloneElement(child, {item});
+                                return cloneElement(child, {item});
                             })
                         }
                     </ul>

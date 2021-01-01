@@ -1,4 +1,3 @@
-import React from 'react';
 import ItemList from '../item-list';
 import { withData, withSwapiService, compose, withChildFunction } from "../hoc-helpers";
 
